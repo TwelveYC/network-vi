@@ -21,9 +21,8 @@ matplotlib
 scipy
 pymysql
 and so on
-
-after clone this project,if you want to use this project , rather than develop again .
-because Django server has some requirement on local mysql database,yo
+## How to use it
+Because Django server has some requirement on local mysql database,yo
 you just use
 ### python manage.py runserver
 to runn the local server, then you can enter http://localhost/analysis/ 
