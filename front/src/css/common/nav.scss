@@ -1,0 +1,28 @@
+
+@mixin nav(){
+    .main-header{
+        background: #f2f2f2;
+        .navbar-nav{
+            margin-left: 400px;
+            li{
+                margin-left: 50px;
+                &:last-of-type{
+                    margin-right: 300px;
+                }
+            }
+            
+        }
+        .generate-box{
+            margin-left: 250px;
+            height: 50px;
+            .instructions{
+                float: left;
+                margin-top: 8px;
+            }
+           .nav-link{
+               float: left;
+                color: rgba(0,0,0,0.5);
+           }
+        }
+    }
+}

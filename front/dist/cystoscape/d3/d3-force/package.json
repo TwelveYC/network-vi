@@ -1,0 +1,106 @@
+{
+  "_args": [
+    [
+      "d3-force@^2.0.1",
+      "D:\\Tools\\nvm\\nvm\\nvm\\v6.2.0\\node_modules\\cytoscape-d3-force"
+    ]
+  ],
+  "_from": "d3-force@>=2.0.1 <3.0.0",
+  "_hasShrinkwrap": false,
+  "_id": "d3-force@2.0.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/cytoscape-d3-force/d3-force",
+  "_nodeVersion": "10.14.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/d3-force_2.0.1_1552579643392_0.3910489794446961"
+  },
+  "_npmUser": {
+    "email": "mike@ocks.org",
+    "name": "mbostock"
+  },
+  "_npmVersion": "6.4.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "d3-force",
+    "raw": "d3-force@^2.0.1",
+    "rawSpec": "^2.0.1",
+    "scope": null,
+    "spec": ">=2.0.1 <3.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/cytoscape-d3-force"
+  ],
+  "_resolved": "https://registry.npmjs.org/d3-force/-/d3-force-2.0.1.tgz",
+  "_shasum": "31750eee8c43535301d571195bf9683beda534e2",
+  "_shrinkwrap": null,
+  "_spec": "d3-force@^2.0.1",
+  "_where": "D:\\Tools\\nvm\\nvm\\nvm\\v6.2.0\\node_modules\\cytoscape-d3-force",
+  "author": {
+    "name": "Mike Bostock",
+    "url": "http://bost.ocks.org/mike"
+  },
+  "bugs": {
+    "url": "https://github.com/d3/d3-force/issues"
+  },
+  "dependencies": {
+    "d3-dispatch": "1",
+    "d3-quadtree": "1",
+    "d3-timer": "1"
+  },
+  "description": "Force-directed graph layout using velocity Verlet integration.",
+  "devDependencies": {
+    "eslint": "5",
+    "rollup": "0.64",
+    "rollup-plugin-terser": "1",
+    "tape": "4"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 16,
+    "integrity": "sha512-zh73/N6+MElRojiUG7vmn+3vltaKon7iD5vB/7r9nUaBeftXMzRo5IWEG63DLBCto4/8vr9i3m9lwr1OTJNiCg==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcinw8CRA9TVsSAnZWagAAY08P/AhoBwcTI8lk1yU6g1B5\nqjcXbWo1TLmVXArocp5o7DP7e4APJVUnxzYzFj04zQ6Z5vcneOd9D8p9I9pB\nd8dj+ZyYhgcHBULzNu5J2x/bBTq6x/Or+v6aJ8gLjM4F9yBebmpXckzWgv1k\nX1YWT2gjWj0JLb8bYPPnoqwvKZ8GYRYSX7Ye/FmNaoQf7/pucCvluTwcmgnD\nmPsTtG8u6S45A56VC2at1frVHFI0QHwdH4DmHse0EJikuCT/i0HJrpy7rpp6\nSnoz3iX0z+vgow6++PTR1/YCVjaPJTKVSDzECBqpEXvY17K1GBXQnm+FwIas\nYhYDKbhupNPRP/tqomM3eo4+irQID3UVAAqJ1H+ppfDXCH9Wl/KIENxkVf4V\n715HrBqwNsuLJK8T1kcw8Owk2HTU/3MDEucLJCn+h8fkTQJw3DboQIFeEjG5\nGfO/whhW5XTGFPwE7FUnJGYZwy4J5PrPtrjiGgpCOPlTxGgXjujOEoYa8CDk\nHdLoCiOqsXnKRIxKgxtA90zJ9RXO8COknlPI1/No+cJe8Hv1K6RdDdXIQ9ZG\n2T7NSpvNO50NdB9D9geF6ZRry+xmICxNCcFGHxQEiu0xlxEuFou4Ah0/60Tb\n6wz81KS6fsXS/phrFvhhGi/xgc65QqNzavgs7SlbZkyS2pKAx0fhp7kf2l9I\nGYF3\r\n=cE4U\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "31750eee8c43535301d571195bf9683beda534e2",
+    "tarball": "https://registry.npmjs.org/d3-force/-/d3-force-2.0.1.tgz",
+    "unpackedSize": 86986
+  },
+  "gitHead": "a97670b8c5ab1b06bf8cebc1493f557e6fd975ec",
+  "homepage": "https://d3js.org/d3-force/",
+  "jsdelivr": "dist/d3-force.min.js",
+  "keywords": [
+    "d3",
+    "d3-module",
+    "layout",
+    "network",
+    "graph",
+    "force",
+    "verlet",
+    "infovis"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "dist/d3-force.js",
+  "maintainers": [
+    {
+      "email": "mike@ocks.org",
+      "name": "mbostock"
+    }
+  ],
+  "module": "src/index.js",
+  "name": "d3-force",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d3/d3-force.git"
+  },
+  "scripts": {
+    "postpublish": "git push && git push --tags && cd ../d3.github.com && git pull && cp ../${npm_package_name}/dist/${npm_package_name}.js ${npm_package_name}.v${npm_package_version%%.*}.js && cp ../${npm_package_name}/dist/${npm_package_name}.min.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git add ${npm_package_name}.v${npm_package_version%%.*}.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git commit -m \"${npm_package_name} ${npm_package_version}\" && git push && cd - && zip -j dist/${npm_package_name}.zip -- LICENSE README.md dist/${npm_package_name}.js dist/${npm_package_name}.min.js",
+    "prepublishOnly": "rm -rf dist && yarn test",
+    "pretest": "rollup -c",
+    "test": "tape 'test/**/*-test.js' && eslint src"
+  },
+  "unpkg": "dist/d3-force.min.js",
+  "version": "2.0.1"
+}

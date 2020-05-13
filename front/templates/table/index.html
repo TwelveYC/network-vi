@@ -1,0 +1,474 @@
+{% extends 'base/base.html' %}
+{% load label_filter %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/table/index.min.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <script src="{% static 'adminlte/plugins/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+
+    <script src="{% static 'js/table_index.min.js' %}"></script>
+{% endblock %}
+{% block nav %}
+    <div class="generate-box">
+        <div class="instructions">
+            <span>Generate Network</span>
+            <i class="fa fa-arrow-right"></i>
+        </div>
+        <a class="nav-link" id="generate-gate" data-widget="control-sidebar" data-slide="false"
+           href="javascript:void(0)">
+            <i class="fas fa-th-large"></i>
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    </nav>
+    <nav>
+        <div class="card card-primary card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-below-mutil-tab" data-toggle="pill"
+                           href="javascript:void(0)" role="tab" aria-controls="custom-content-below-home"
+                           aria-selected="true">Network Manager</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-content-below-single-tab" data-toggle="pill"
+                           href="javascript:void(0)"
+                           role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Single
+                            network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-content-below-part-tab" data-toggle="pill"
+                           href="javascript:void(0)"
+                           role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Calculate Network Parameters</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="custom-content-below-tabContent">
+                    <strong>
+                        <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
+                             aria-labelledby="custom-content-below-home-tab">
+                            Network Manager means that you can manage those networks in system.
+                        </div>
+                    </strong>
+                </div>
+                <div class="configure-option">
+                    <div class="form-group single-choose option-choose" style="display: none; width: 500px">
+                        <label>
+                            <i class="fa fa-list"></i>
+                            Single Network Choose
+                        </label>
+                        <select class="form-control network-select single-select" name="" id="single-network-select">
+                            {% for network in networks %}
+                                <option value="{{ network.pk }}">{{ network.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group multi-choose option-choose" style=" width: 900px">
+                        <label>
+                            <i class="fa fa-list"></i>
+                             Network Manager
+                        </label>
+                        <table class="table table-bordered table-hover" id="network-table">
+                            <thead>
+                                <tr>
+                                    <th>network name</th>
+                                    <th>number of node</th>
+                                    <th>number of edge</th>
+                                    <th>attribute of node</th>
+                                    <th>attribute of edge</th>
+                                    <th>operating button</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for network in networks %}
+                                <tr>
+                                    <td>{{ network.name }}</td>
+                                    <td>{{ network.num_node }}</td>
+                                    <td>{{ network.num_link }}</td>
+                                    <td>{{ network.labels_node|label_split }}</td>
+                                    <td>{{ network.labels_edge|label_split }}</td>
+                                    <td>
+                                        <button class="btn btn-block btn-danger delete-graph" networkId="{{ network.id }}">delete</button></td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group partial-choose option-choose" style="display: none;">
+                        <label>
+                            <i class="fa fa-list"></i>
+                            Network Choose
+                        </label>
+                        <select class="form-control network-select" name="" id="partial-network-select" style="width: 500px">
+                            {% for network in networks %}
+                                <option value="{{ network.pk }}">{{ network.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="partial-choose option-choose partial-option">
+                            <div class="number-filter">
+                                <table class="table table-bordered" style="width: 700px; margin-top: 10px">
+                                    <thead>
+                                    <tr>
+                                        <td>statistical magnitude</td>
+                                        <td>average value</td>
+                                        <td>operation</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Average Degree</td>
+                                        <td>
+                                            <span id="average-degree" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="degree">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Degree Centrality</td>
+                                        <td>
+                                            <span id="average-degreecentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="degreecentrality">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Betweeness Centrality</td>
+                                        <td>
+                                            <span id="average-betweenesscentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="betweenesscentrality">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Closeness Centrality</td>
+                                        <td>
+                                            <span id="average-closenesscentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="closenesscentrality">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Eigenvector Centrality</td>
+                                        <td>
+                                            <span id="average-eigenvectorcentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="eigenvectorcentrality">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Information Centrality</td>
+                                        <td>
+                                            <span id="average-informationcentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="informationcentrality">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Current Flow Betweenness Centrality</td>
+                                        <td>
+                                            <span id="average-currentflowbetweennesscentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                             <span data-type="currentflowbetweennesscentrality">
+                                                  <button class="btn btn-block btn-info get-value">calculate</button>
+                                                  <button class="btn btn-block btn-danger delete-value">delete</button>
+                                              </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Page Rank</td>
+                                        <td>
+                                            <span id="average-pagerank" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="pagerank">
+                                                  <button class="btn btn-block btn-info get-value">calculate</button>
+                                                  <button class="btn btn-block btn-danger delete-value">delete</button>
+                                              </span>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td>Average communicability betweennessCentrality</td>
+                                        <td>
+                                            <span id="average-communicabilitybetweennesscentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="communicabilitybetweennesscentrality" >
+                                                 <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Subgraph Centrality</td>
+                                        <td>
+                                            <span id="average-subgraphcentrality" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="subgraphcentrality">
+                                                 <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average clustering</td>
+                                        <td>
+                                            <span id="average-clustering" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="clustering">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Edge Betweeness Centrality</td>
+                                        <td>
+                                            <span id="average-edgebetweeness" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="edgebetweeness">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr><tr>
+                                        <td>Average Neighbor Degree</td>
+                                        <td>
+                                            <span id="average-averageNeighborDegree" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="averageNeighborDegree">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Communities girvan_newman</td>
+                                        <td>
+                                            <span id="average-communitiesGirvanNewman" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="communitiesGirvanNewman">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td>Communities greedy modularity</td>
+                                        <td>
+                                            <span id="average-communitiesGreedyModularity" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="communitiesGreedyModularity">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>Communities asyn lpa</td>
+                                        <td>
+                                            <span id="average-communitiesAsynLpa" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="communitiesAsynLpa">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>Communities label_propagation</td>
+                                        <td>
+                                            <span id="average-communitiesLabelPropagation" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="communitiesLabelPropagation">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>Communities asyn_fluidc</td>
+                                        <td>
+                                            <span id="average-communitiesAsynFluidc" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="communitiesAsynFluidc">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>GirvanNewman modularity strength</td>
+                                        <td>
+                                            <span id="average-modularitystrengthGirvanNewman" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="modularitystrengthGirvanNewman">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr><tr>
+                                        <td>GreedyModularity modularity strength</td>
+                                        <td>
+                                            <span id="average-modularitystrengthGreedyModularity" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="modularitystrengthGreedyModularity">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr><tr>
+                                        <td>AsynLpa modularity strength</td>
+                                        <td>
+                                            <span id="average-modularitystrengthAsynLpa" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="modularitystrengthAsynLpa">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr><tr>
+                                        <td>LabelPropagation modularity strength</td>
+                                        <td>
+                                            <span id="average-modularitystrengthLabelPropagation" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="modularitystrengthLabelPropagation">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr><tr>
+                                        <td>AsynFluidc modularity strength</td>
+                                        <td>
+                                            <span id="average-modularitystrengthAsynFluidc" class="average"></span>
+                                        </td>
+                                        <td>
+                                            <span data-type="modularitystrengthAsynFluidc">
+                                                <button class="btn btn-block btn-info get-value">calculate</button>
+                                                <button class="btn btn-block btn-danger delete-value">delete</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="upload-btn">
+                        <div class="custom-file" style="width: 400px">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Upload Network File</label>
+                        </div>
+                        <div class="btn-box">
+                            <button class="btn btn-block btn-outline-success upload-network-btn">Upload New Network
+                            </button>
+                            <button class="btn btn-block btn-outline-success confirmation-btn">Confirmation</button>
+                            <div class="bootstrap-switch-null bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate"
+                                 style="width: 88.6666px; margin-left: 20px;">
+                                <div class="bootstrap-switch-container" id="bootstrap-switch-container"
+                                     style="width: 130px; margin-left: 0px;">
+                                    <input type="checkbox" name="my-checkbox" id="my-checkbox" checked=""
+                                           data-bootstrap-switch="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="main-body">
+        <ul class="table-ul">
+        </ul>
+    </div>
+{% endblock %}
+
+{% block elsecontent %}
+    <div class="generate-network-pop-box">
+        <div class="card">
+            <div class="card-header">
+                <h3>Generate Network Options</h3>
+            </div>
+            <div class="card-body" id="generate-card-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="network-name" placeholder="Network Name">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="" id="generate-type-select">
+                        <option value="Atlas">Atlas</option>
+                        <option value="Classic">Classic</option>
+                        <option value="Lattice">Lattice</option>
+                        <option value="Small">Small</option>
+                        <option value="Random">Random Graphs</option>
+                        <option value="Directed">Directed</option>
+                        <option value="Geometric">Geometric</option>
+                        <option value="AS">AS graph</option>
+                        <option value="Social">Social Networks</option>
+                        <option value="Community">Community</option>
+                        <option value="Trees">Trees</option>
+                        <option value="Cographs">Cographs Graph</option>
+                    </select>
+                </div>
+                <div class="form-group" id="kind-select" style="display: none">
+                    <select name="" id="generate-kind-select" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="input-1" placeholder="graph number in Atlas">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="input-2" placeholder="">
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    <button class="btn btn-block btn-success btn-large" id="generate-submit-btn">OK</button>
+                    <button class="btn btn-block btn-danger btn-large" id="clear-button">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

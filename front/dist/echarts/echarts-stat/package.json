@@ -1,0 +1,80 @@
+{
+  "_args": [
+    [
+      "echarts-stat",
+      ""
+    ]
+  ],
+  "_from": "echarts-stat@latest",
+  "_id": "echarts-stat@1.1.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/echarts-stat",
+  "_nodeVersion": "6.9.5",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/echarts-stat_1.1.1_1522316643515_0.7683970799149256"
+  },
+  "_npmUser": {
+    "email": "annong035@gmail.com",
+    "name": "lideqing"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "echarts-stat",
+    "raw": "echarts-stat",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/echarts-stat/-/echarts-stat-1.1.1.tgz",
+  "_shasum": "bd48880013f579c1b867cc415c09c3fd7d9dc179",
+  "_shrinkwrap": null,
+  "_spec": "echarts-stat",
+  "_where": "",
+  "author": {
+    "email": "annong035@gmail.com",
+    "name": "Deqing Li"
+  },
+  "bugs": {
+    "url": "https://github.com/ecomfe/echarts-stat/issues"
+  },
+  "dependencies": {},
+  "description": "a statistical tool for ECharts",
+  "devDependencies": {
+    "webpack": "^1.13.3",
+    "webpack-link": "^0.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 49,
+    "shasum": "bd48880013f579c1b867cc415c09c3fd7d9dc179",
+    "tarball": "https://registry.npmjs.org/echarts-stat/-/echarts-stat-1.1.1.tgz",
+    "unpackedSize": 685097
+  },
+  "gitHead": "6b01f5d8cc262b3895365ad39f2ea1703f0e776f",
+  "homepage": "https://github.com/ecomfe/echarts-stat#readme",
+  "license": "BSD",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "annong035@gmail.com",
+      "name": "lideqing"
+    }
+  ],
+  "name": "echarts-stat",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecomfe/echarts-stat.git"
+  },
+  "scripts": {},
+  "types": "src/ecStat.d.ts",
+  "version": "1.1.1"
+}

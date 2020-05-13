@@ -1,0 +1,99 @@
+{
+  "_args": [
+    [
+      "d3-quadtree@1",
+      "D:\\Tools\\nvm\\nvm\\nvm\\v6.2.0\\node_modules\\cytoscape-d3-force\\node_modules\\d3-force"
+    ]
+  ],
+  "_from": "d3-quadtree@>=1.0.0 <2.0.0",
+  "_hasShrinkwrap": false,
+  "_id": "d3-quadtree@1.0.7",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/cytoscape-d3-force/d3-quadtree",
+  "_nodeVersion": "10.16.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/d3-quadtree_1.0.7_1573930996918_0.6350971130463301"
+  },
+  "_npmUser": {
+    "email": "mike@ocks.org",
+    "name": "mbostock"
+  },
+  "_npmVersion": "6.9.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "d3-quadtree",
+    "raw": "d3-quadtree@1",
+    "rawSpec": "1",
+    "scope": null,
+    "spec": ">=1.0.0 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/cytoscape-d3-force/d3-force"
+  ],
+  "_resolved": "https://registry.npmjs.org/d3-quadtree/-/d3-quadtree-1.0.7.tgz",
+  "_shasum": "ca8b84df7bb53763fe3c2f24bd435137f4e53135",
+  "_shrinkwrap": null,
+  "_spec": "d3-quadtree@1",
+  "_where": "D:\\Tools\\nvm\\nvm\\nvm\\v6.2.0\\node_modules\\cytoscape-d3-force\\node_modules\\d3-force",
+  "author": {
+    "name": "Mike Bostock",
+    "url": "http://bost.ocks.org/mike"
+  },
+  "bugs": {
+    "url": "https://github.com/d3/d3-quadtree/issues"
+  },
+  "dependencies": {},
+  "description": "Two-dimensional recursive spatial subdivision.",
+  "devDependencies": {
+    "d3-array": "1 - 2",
+    "eslint": "6",
+    "rollup": "1",
+    "rollup-plugin-terser": "5",
+    "tape": "4"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 20,
+    "integrity": "sha512-RKPAeXnkC59IDGD0Wu5mANy0Q2V28L+fNe65pOCXVdVuTJS3WPKaJlFHer32Rbh9gIo9qMuJXio8ra4+YmIymA==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd0Ef1CRA9TVsSAnZWagAAIjEQAITGOgr9OqcsoKyo3aeS\nJkYMh5rj5dYNl0kYstYvnP1VG2E5keBfOCYAGZl/fAYrew43PFGdf5Kd8lya\n4/XBe4Ck6tAk4zSTX51DAXyA0j2pW1ubUbRntYdVYyZgDIjF3PASBTiVkpUW\n8LB4pyHrSTSdUhML2pw0+XyBpNvFHtXToUgXJb7CsnF+j06E1JtU/ijnyyvk\nNlSq6kSZyUcvzHshEoDc1MxMqImgmSPdBFjXRWbm+GaaA1vL9QaD4xi9Pjxk\nMqVl4hzr4K4wfJLWacmJ+bKk2yYrbPXPcuE+nY2F6KygtgLElxH2ZFFCNF8S\nNEeaVVU7OfnCbh6HvRehLieCS2THmSveDQDjgCVyanUVBOUc/W36IwoTzfiw\n5DY+XwA3GEfDgLeOqS1OcJUWNtNglIp2ybzac+iTcNFc5w/Xwj1JVBtlN1pE\nAJqRdTvSAht+XtMTYGfmV9bsax9njqsx01UQnEotQHi/XevXQpG1NvjWkUr9\nRyFh2+4lh7cGkMMIspBdb0IUb11fApxEAMVnN2KQx6Q4pSPZmEw2sOYCHLv7\nDON3/rJhF4IvMJ7o2YblZvKafWeagOwu4x+T12ljrakDH3wg78qpKeeWbBgR\ngs9rxCIte/rNQNLsyYKIVmy5RBCfq6U0AZPn0tARCYHgGfaa6sHrBcSGlq2P\nlnl8\r\n=94zn\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "ca8b84df7bb53763fe3c2f24bd435137f4e53135",
+    "tarball": "https://registry.npmjs.org/d3-quadtree/-/d3-quadtree-1.0.7.tgz",
+    "unpackedSize": 43314
+  },
+  "gitHead": "9804ee5307efa3822097b3e49de8061555dfe792",
+  "homepage": "https://d3js.org/d3-quadtree/",
+  "jsdelivr": "dist/d3-quadtree.min.js",
+  "keywords": [
+    "d3",
+    "d3-module",
+    "quadtree"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "dist/d3-quadtree.js",
+  "maintainers": [
+    {
+      "email": "mike@ocks.org",
+      "name": "mbostock"
+    }
+  ],
+  "module": "src/index.js",
+  "name": "d3-quadtree",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d3/d3-quadtree.git"
+  },
+  "scripts": {
+    "postpublish": "git push && git push --tags && cd ../d3.github.com && git pull && cp ../${npm_package_name}/dist/${npm_package_name}.js ${npm_package_name}.v${npm_package_version%%.*}.js && cp ../${npm_package_name}/dist/${npm_package_name}.min.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git add ${npm_package_name}.v${npm_package_version%%.*}.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git commit -m \"${npm_package_name} ${npm_package_version}\" && git push && cd - && zip -j dist/${npm_package_name}.zip -- LICENSE README.md dist/${npm_package_name}.js dist/${npm_package_name}.min.js",
+    "prepublishOnly": "rm -rf dist && yarn test",
+    "pretest": "rollup -c",
+    "test": "tape 'test/**/*-test.js' && eslint src test"
+  },
+  "sideEffects": false,
+  "unpkg": "dist/d3-quadtree.min.js",
+  "version": "1.0.7"
+}

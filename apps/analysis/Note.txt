@@ -1,0 +1,162 @@
+功能
+可以附着在点上面的属性
+degree
+betweeness
+closeness
+clustering
+
+每个属性都是附着在节点上面，可以绘制极坐标图，折线图和柱状图
+
+
+可以附着在边上面的属性
+edgebetweeness
+
+
+可以附着在整体上面的属性
+最短路径长度
+度分布
+kcore
+max-clique
+表示顶点子集，任意两个点都有点连接，求解最大子集
+A clique in an undirected graph G = (V, E) is a subset of the vertex set C subseteq V such that for every two
+vertices in C there exists an edge connecting the two
+社团分割
+    单个算法 图表使用饼状图,柱状图，饼图+柱状图，拓扑使用不同的颜色盘
+
+
+
+
+// var url = '../../media/data/metabolic/metabolicpos.json';
+// var request = new XMLHttpRequest();
+// request.open('get',url);
+// request.send(null);
+// request.onload = function(){
+//     self.data = JSON.parse(request.response);
+//     var options = {
+//         container:self.container,
+//         // elements:[
+//         //         {data:{id:'0'}},
+//         //         {data:{id:'1'}},
+//         //         {data:{id:'2'}},
+//         //         {data:{id:'3'}},
+//         //         {data:{id:'4'}},
+//         //         {data:{id:'5'}},
+//         //         {data:{id:'6'}},
+//         //         {data:{id:'7'}},
+//         //         {data:{id:'8'}},
+//         //         {data:{id:'9'}},
+//         //         {data:{id:'10'}},
+//         //         {data:{id:'11'}},
+//         //         {data:{id:'12'}},
+//         //         {data:{id:'13'}},
+//         //         {data:{id:'14'}},
+//         //         {data:{id:'1_2_0',source:'1',target:'2'}},
+//         //         {data:{id:'1_3_1',source:'1',target:'3'}},
+//         //         {data:{id:'2_4_2',source:'2',target:'4'}},
+//         //         {data:{id:'2_7_3',source:'2',target:'7'}},
+//         //         {data:{id:'2_8_4',source:'2',target:'8'}},
+//         //         {data:{id:'3_4_5',source:'3',target:'4'}},
+//         //         {data:{id:'5_7_6',source:'5',target:'7'}},
+//         //         {data:{id:'6_7_7',source:'6',target:'7'}},
+//         //         {data:{id:'8_5_8',source:'8',target:'5'}},
+//         //         {data:{id:'8_11_9',source:'8',target:'11'}},
+//         //         {data:{id:'9_13_10',source:'9',target:'13'}},
+//         //         {data:{id:'10_5_11',source:'10',target:'5'}},
+//         //         {data:{id:'10_14_12',source:'10',target:'14'}},
+//         //         {data:{id:'11_13_13',source:'11',target:'13'}},
+//         //         {data:{id:'11_8_14',source:'11',target:'8'}},
+//         //         {data:{id:'12_4_15',source:'12',target:'4'}},
+//         //         {data:{id:'12_5_16',source:'12',target:'5'}},
+//         //         {data:{id:'13_7_17',source:'13',target:'7'}},
+//         //         {data:{id:'14_10_18',source:'14',target:'10'}},
+//         //         {data:{id:'14_1_19',source:'14',target:'1'}},
+//         //         {data:{id:'14_6_20',source:'14',target:'6'}},
+//         //         {data:{id:'0_1_21',source:'0',target:'1'}},
+//         //      ],
+//         elements:self.data,
+//         style:[
+//             {
+//                 selector:'node',
+//                 style:{
+//                     'background-color':'#ff9f03',
+//                     'label':'data(id)',
+//                 }
+//             },
+//             {
+//                 selector:'edge',
+//                 style:{
+//                     'width':3,
+//                     'line-color':'#000',
+//                     'target-arrow-color':'#b2b2b2',
+//                     'target-arrow-shape':'none',
+//                 }
+//             }
+//         ],
+//         layout:{
+//
+//             name:'circle',
+//             fit:true,
+//             startAngle:0
+//
+//             // name:'grid',
+//             // cols:100,
+//             // rows:100,
+//             // name:'preset',
+//             // positions:function(node){
+//             //     console.log(node.data('label'));
+//             //     return {x:1340*Math.random(),y:760*Math.random()};
+//             // }
+//         }
+//     };
+// };
+
+
+// var nodes = self.cy.nodes();
+//     var weights = self.cy.nodes().map(function (ele) {
+//         return ele.data('weight');
+//     });
+//     var min = self.cy.nodes().min(function (ele) {
+//         return ele.data('weight');
+//     });
+//     var max = self.cy.nodes().max(function (ele) {
+//         return ele.data('weight');
+//     });
+//     max = max['value'];
+//     min = min['value'];
+//
+//     //max #ff0000
+//     //min #ffff00
+//     nodes.forEach(function (ele, i, eles) {
+//         var weight = ele.data('weight');
+//         weight = parseInt(((weight-min)/max)*256);
+//         weight = 255-weight;
+//         if(weight <= 15){
+//             console.log(weight);
+//             weight = weight.toString(16);
+//             weight = "#" + "ff0" + weight +'00';
+//         }else{
+//             weight = weight.toString(16);
+//             weight = "#" + "ff" + weight +'00';
+//         }
+//         ele.style('background-color',weight);
+//     })
+
+
+// ready: function(){
+//     document.getElementById('progress-box').style.display = 'block'
+// },
+// stop: function(){
+//     document.getElementById('progress-box').style.display = 'none'
+// },
+// tick: function(progress) {
+//     let text = (progress * 100).toFixed(1) + '%'
+//     document.getElementById('progress-text').innerHTML = `正在计算布局，请稍后 ${text}`
+//     document.getElementById('progress-bar').style.width = text
+// },
+
+// name: 'euler',
+// randomize: true,
+// animate: false
+// name:'fcose'
+// name: 'klay'
+// name:'spread'

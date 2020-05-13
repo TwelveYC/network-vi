@@ -1,0 +1,106 @@
+@import '../common/constant.scss';
+@import '../common/common.scss';
+@import '../common/nav.scss';
+.wrapper{
+    @include nav;
+    .tab-content{
+        width: 700px;
+        padding: 2px;
+        border-bottom: 1px solid $boxHeadColor;
+    };
+    .configure-option{
+        overflow: hidden;
+        .form-group{
+            margin-top: 20px;
+            margin-left: 5px;
+            float: left;
+            //width: 500px;
+            .custom-control{
+                float: left;
+            }
+            .number-filter{
+                .partial-filter-checkbox{
+                    li{
+                        list-style: none;
+                        .partial-filter-checkbox-box{
+                            label{
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .main-body{
+        .card{
+            .card-header{
+                a{
+                    float: right;
+                }
+            }
+            .card-body{
+                .configure-option{
+
+                }
+            }
+        }
+    }
+    .table-ul{
+        li{
+            list-style: none;
+        }
+    }
+}
+
+.generate-network-pop-box{
+    //382.72
+    position: fixed;
+    top: 60px;
+    right: -382.72px;
+    z-index: 1031;
+    .form-control{
+        z-index: 1032;
+    }
+}
+
+.upload-btn{
+    //height: 100px;
+    float: right;
+    .custom-file{
+        width: 500px;
+    }
+    .btn-box{
+        overflow: hidden;
+        width: 550px;
+        margin-top: 20px;
+        .upload-network-btn{
+            margin-top: 8px;
+            width: 200px;
+            float: left;
+        }
+        .confirmation-btn{
+            margin-left: 20px;
+            width: 200px;
+            float: left;
+        }
+        .bootstrap-switch{
+            margin-top: 5px;
+            float: left;
+        }
+    }
+}
+
+.number-filter{
+    .table-bordered{
+        tbody{
+            span{
+                overflow: hidden;
+                button{
+                    float: left;
+                }
+            }
+        }
+    }
+}

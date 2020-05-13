@@ -1,0 +1,99 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <script src="esl.js"></script>
+        <script src="config.js"></script>
+        <script src="lib/jquery.min.js"></script>
+    </head>
+    <body>
+        <style>
+            html, body, #main {s
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        <div id="main"></div>
+        <script>
+
+            require([
+                'echarts',
+                'ecStat'
+            ], function (echarts, ecStat) {
+
+                var chart = echarts.init(document.getElementById('main'));
+
+                $.getJSON('./data/regression_data0.json')
+                .done(function (data) {
+
+                    var myRegression = ecStat.regression('linear', data);
+
+                    myRegression.points.sort(function (a, b) {
+                        return a[0] - b[0];
+                    });
+
+                    chart.setOption({
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'cross'
+                            }
+                        },
+                        xAxis: {
+                            type: 'value',
+                            splitLine: {
+                                lineStyle: {
+                                    type: 'dashed'
+                                }
+                            },
+                        },
+                        yAxis: {
+                            type: 'value',
+                            min: 1.5,
+                            splitLine: {
+                                lineStyle: {
+                                    type: 'dashed'
+                                }
+                            },
+                        },
+                        series: [{
+                            name: 'scatter',
+                            type: 'scatter',
+                            label: {
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: data
+                         },{
+                            name: 'line',
+                            type: 'line',
+                            showSymbol: false,
+                            data: myRegression.points,
+                            markPoint: {
+                                itemStyle: {
+                                    normal: {
+                                        color: 'transparent'
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        formatter: myRegression.expression,
+                                        textStyle: {
+                                            color: '#333',
+                                            fontSize: 14
+                                        }
+                                    }
+                                },
+                                data: [{
+                                    coord: myRegression.points[myRegression.points.length - 1]
+                                }]
+                            }
+                        }]
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

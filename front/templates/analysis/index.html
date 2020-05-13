@@ -1,0 +1,666 @@
+{% extends 'base/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/analysis/index.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'colorpicker/spectrum.css' %}">
+    <script src="{% static 'colorpicker/spectrum.js' %}"></script>
+    <script src="{% static 'js/jquery.inputmask.min.js' %}"></script>
+    {#    拓展layout#}
+    {#avsdf#}
+    <script src="{% static 'cystoscape/avsdf/layout-base.js' %}"></script>
+    <script src="{% static 'cystoscape/avsdf/avsdf-base.js' %}"></script>
+    <script src="{% static 'cystoscape/avsdf/cytoscape-avsdf.js' %}"></script>
+
+    {#    d3#}
+    <script src="{% static 'cystoscape/d3/d3-dispatch/dist/d3-dispatch.min.js' %}"></script>
+    <script src="{% static 'cystoscape/d3/d3-quadtree/dist/d3-quadtree.min.js' %}"></script>
+    <script src="{% static 'cystoscape/d3/d3-timer/dist/d3-timer.min.js' %}"></script>
+    <script src="{% static 'cystoscape/d3/d3-force/dist/d3-force.min.js' %}"></script>
+
+    <script>
+        window['d3-force'] = d3
+    </script>
+    <script src="{% static 'cystoscape/d3/cytoscape-d3-force.js' %}"></script>
+
+    {#eluer#}
+    <script src="{% static 'cystoscape/euler/cytoscape-euler.js' %}"></script>
+    {#fcose#}
+    <script src="{% static 'cystoscape/fcose/numeric-1.2.6.min.js' %}"></script>
+    <script src="{% static 'cystoscape/fcose/cose-base.js' %}"></script>
+    <script src="{% static 'cystoscape/fcose/cytoscape-fcose.js' %}"></script>
+
+    {#    klay#}
+    <script src="{% static 'cystoscape/klay/klay.js' %}"></script>
+    <script src="{% static 'cystoscape/klay/cytoscape-klay.js' %}"></script>
+
+
+    {#    spread#}
+    <script src="{% static 'cystoscape/spread/weaver.js' %}"></script>
+    <script src="{% static 'cystoscape/spread/cytoscape-spread.js' %}"></script>
+    {#    dblclick#}
+    <script src="{% static 'cystoscape/dblclick/dblclick.js' %}"></script>
+    <script src="{% static 'js/index.min.js' %}"></script>
+    <script src="{% static 'js/layout_handle.min.js' %}"></script>
+    <script src="{% static 'js/mouse.min.js' %}"></script>
+    <script src="{% static 'js/label_handle.min.js' %}"></script>
+    <script src="{% static 'js/toasts.min.js' %}"></script>
+    <script src="{% static 'js/statistics.min.js' %}"></script>
+    <script src="{% static 'js/style.min.js' %}"></script>
+    <script src="{% static 'js/style_table.min.js' %}"></script>
+    <script src="{% static 'js/visualMap.min.js' %}"></script>
+    <script src="{% static 'js/mca.min.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <div class="control-nav">
+            <div class="diagram box-block">
+                <div class="diagram-head box-block-head">
+                    DIAGRAM VIEW
+                </div>
+                <div class="diagram-body box-block-body" id="diagram-img">
+                </div>
+            </div>
+            <div class="control-panel box-block">
+                <div class="control-panel-head box-block-head">
+                    CONTROL PANEL
+                </div>
+                <div class="control-panel-body box-block-hody">
+                    <form action="">
+                        <div class="Reset-box">
+                            <strong><label>
+                                <i class="fa fa-recycle"></i>
+                                Layout Reset:
+                            </label></strong>
+                            <button class="btn btn-block btn-outline-success reset-btn" id="reset-btn">Reset</button>
+                        </div>
+                        <div class="form-group">
+                            <p></p>
+                            <strong><label>
+                                <i class="fa fa-list"></i>
+                                Layout Select:
+                            </label></strong>
+                            <select class="custom-select input-box" id="layout-select">
+                                <option value="0">Circle</option>
+                                <option value="1">Random</option>
+                                <option value="2">Gird</option>
+                                <option value="3">Concentric</option>
+                                <option value="4">Breadthfirst</option>
+                                <option value="5">Cose</option>
+                                <option value="6">Preset</option>
+                                <option value="7">D3-force</option>
+                                <option value="8">Euler</option>
+                                <option value="9">Fcose</option>
+                                <option value="10">klay</option>
+                                <option value="11">Spread</option>
+                                <option value="12">kamada_kawai</option>
+                                <option value="13">Fruchterman-Reingold</option>
+                                <option value="14">spiral</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="layout-option-box">
+                            <strong><label>
+                                <i class="fa fa-bars"></i>
+                                Layout Options:
+                            </label></strong>
+                            <div class="option-box" id="option-box">
+                                <input type="text" class="form-control input-box input-layout-option layout-option"
+                                       id="start-angle" placeholder="start angle">
+                                <select class="custom-select input-layout-option input-box layout-option"
+                                        id="sort-Selector" aria-placeholder="sadf"></select>
+                                <button class="btn btn-block btn-outline-success layout-option submit-btn"
+                                        id="start-layout-btn">Start Layout
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <strong><label>
+                                <i class="fa fa-list"></i>
+                                Label Select:
+                            </label></strong>
+                            <strong><label style="margin-left: 50px;">
+                                <i class="fa fa-check-circle"></i>
+                                Display Label:
+                            </label></strong>
+                            <p></p>
+                            <div class="bootstrap-switch-null bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch-undefined bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate"
+                                 style="width: 88.6666px; margin-left: 10px;">
+                                <div class="bootstrap-switch-container" id="bootstrap-switch-container"
+                                     style="width: 130px; margin-left: 0px;">
+                                    <input type="checkbox" name="my-checkbox" id="my-checkbox" checked=""
+                                           data-bootstrap-switch="">
+                                </div>
+                            </div>
+                            <select class="custom-select" id="label-select" style="width: 260px">
+                            </select>
+                            <button class="btn btn-block btn-outline-success layout-option submit-btn"
+                                    id="label-submit-btn">Submit Label Change
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="main-view">
+            <div class="link-view box-block">
+                <div class="link-view-head box-block-head" style="padding-left: 50px">
+                    LINK VIEW
+                    <span id="network-name" class="network-name">metabolic</span>
+                    <span id="display-label" class="display-label"></span>
+                </div>
+                <div class="link-view-body box-block-body">
+                    <strong><p class="total-elements-data" id="total-elements-data"></p></strong>
+                    <strong><p class="single-element-data" id="single-element-data"></p></strong>
+                    <div class="toolbar" id="toolbar">
+                        <div class="check-box-group">
+                            <div class="form-group clearfix editCheckBox" title="check to start edit the graph style">
+                                <label for="editCheckBox">
+                                    <img src="{% static 'images/edit.png' %}" alt="">
+                                </label>
+                                <div class="icheck-success d-inline">
+                                    <input type="checkbox" name="editCheckBox" id="editCheckBox">
+                                    <label for="editCheckBox">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix entireCheckBox" title="check to start edit all graph style">
+                                <label for="entireCheckBox">
+                                    <img src="{% static 'images/pen.png' %}" alt="">
+                                </label>
+                                <div class="icheck-success d-inline">
+                                    <input type="checkbox" name="entireCheckBox" id="entireCheckBox">
+                                    <label for="entireCheckBox"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="node-style">
+                            <strong>
+                                <span style="margin-left: 50px">Node Style</span>
+                            </strong>
+                            <div class="input-group" title="node color picker">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="{% static 'images/Colorpickerplus.png' %}"
+                                                                        alt=""></span>
+                                </div>
+                                <input type="text"
+                                       class="form-control node-color-picker-input my-colorpicker1 colorpicker-element"
+                                       id="node-color-picker" data-colorpicker-id="1" data-original-title=""
+                                       title="node color picker" style="width: 200px">
+                                <label for="node-color-picker">
+                                </label>
+                            </div>
+                            <div class="input-group" title="node size input">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="{% static 'images/Size.png' %}"
+                                                                        alt=""></span>
+                                </div>
+                                <input type="text" class="form-control node-size-input" id="node-size-input"
+                                       title="node-size-input">
+                                <label for="node-size-input">
+                                </label>
+                            </div>
+                            <div class="input-group mb-3" title="node shape choose">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <img src="{% static 'images/shape.png' %}" alt="">
+                                    </span>
+                                </div>
+                                <select name="node-shape-select" id="node-shape-select" class="node-shape-select">
+                                    <option value="ellipse">ellipse</option>
+                                    <option value="triangle">triangle</option>
+                                    <option value="round-triangle">round-triangle</option>
+                                    <option value="round-rectangle">round-rectangle</option>
+                                    <option value="bottom-round-rectangle">bottom-round-rectangle</option>
+                                    <option value="cut-rectangle">cut-rectangle</option>
+                                    <option value="barrel">barrel</option>
+                                    <option value="rhomboid">rhomboid</option>
+                                    <option value="diamond">diamond</option>
+                                    <option value="round-diamond">round-diamond</option>
+                                    <option value="pentagon">pentagon</option>
+                                    <option value="hexagon">hexagon</option>
+                                    <option value="round-hexagon">round-hexagon</option>
+                                    <option value="heptagon">heptagon</option>
+                                    <option value="octagon">octagon</option>
+                                    <option value="round-octagon">round-octagon</option>
+                                    <option value="star">star</option>
+                                    <option value="tag">tag</option>
+                                    <option value="round-tag">round-tag</option>
+                                    <option value="vee">vee</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="link-shape">
+                            <strong>
+                                <span style="margin-left: 50px">Link Style</span>
+                            </strong>
+                            <div class="input-group" title="link color picker">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="{% static 'images/colorlink.png' %}"
+                                                                        alt=""></span>
+                                </div>
+                                <input type="text"
+                                       class="form-control link-color-picker-input my-colorpicker1 colorpicker-element"
+                                       id="link-color-picker" data-colorpicker-id="1" data-original-title=""
+                                       title="link color picker">
+                                <label for="link-color-picker">
+                                </label>
+                            </div>
+                            <div class="input-group" title="link width input">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="{% static 'images/sizelink.png' %}"
+                                                                        alt=""></span>
+                                </div>
+                                <input type="text" class="form-control link-width-input" id="link-width-input"
+                                       title="link width input">
+                                <label for="link-width-input">
+                                </label>
+                            </div>
+                            <div class="input-group" title="link shape choose">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <img src="{% static 'images/link.png' %}" alt="">
+                                    </span>
+                                </div>
+                                <select name="link-shape-select" id="link-shape-select" class="link-shape-select">
+                                    <option value="solid">solid</option>
+                                    <option value="dotted">dotted</option>
+                                    <option value="dashed">dashed</option>
+                                    <option value="opacity">opacity</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3" title="curve link style">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <img src="{% static 'images/pingquxian.png' %}" alt="">
+                                    </span>
+                                </div>
+                                <select name="curve-line-style" id="curve-line-style" class="curve-line-style">
+                                        <option value="haystack">haystack</option>
+                                        <option value="straight">straight</option>
+                                        <option value="bezier">bezier</option>
+                                        <option value="unbundled-bezier">unbundled-bezier</option>
+                                        <option value="segments">segments</option>
+                                        <option value="taxi">taxi</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="tag-shape">
+                            <strong>
+                                <span style="margin-left: 35px">Node Tag Shape</span>
+                            </strong>
+                            <div class="input-group" title="tag border input">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="{% static 'images/border.png' %}"
+                                                                        alt=""></span>
+                                </div>
+                                <input type="text" class="form-control link-width-input" id="tag-border-input"
+                                       title="tag border input">
+                                <label for="tag-border-input">
+                                </label>
+                            </div>
+                            <div class="input-group" title="tag color input">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="{% static 'images/border-color.png' %}"
+                                                                        alt=""></span>
+                                </div>
+                                <input type="text" class="form-control link-width-input" id="tag-color-input"
+                                       title="tag color input">
+                                <label for="tag-color-input">
+                                </label>
+                            </div>
+                            <div class="input-group mb-3" title="tag shape choose">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <img src="{% static 'images/border-style.png' %}" alt="">
+                                    </span>
+                                     <select name="border-shape-select" id="tag-shape-select" class="border-shape-select">
+                                         <option value="null">null</option>
+                                    <option value="solid">solid</option>
+                                    <option value="dotted">dotted</option>
+                                    <option value="dashed">dashed</option>
+                                    <option value="double">double</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+{#                        <div class="btn-group" style="margin-top: 5px;margin-left: 5px">#}
+                            <button type="button" id="clear-btn" class="btn btn-block btn-danger btn-xs" style="margin-top: 5px">Buffer Clear</button>
+                        <button type="button" id="reset-style-btn" class="btn btn-block btn-info btn-xs">Style Reset</button>
+                        <button type="button" id="img-btn" class="btn btn-block btn-warning btn-xs">Image</button>
+                        <button type="button" id="reset-value" class="btn btn-block btn-primary btn-xs">Input Value Reset</button>
+{#                      </div>#}
+                    </div>
+                    <div class="main-link-view" id="main-link-view">
+                    </div>
+                    <div class="drop-down-box" state="middle" page="1">
+                        <div class="first-floor">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <img src="{% static 'images/select.png' %}" alt="">
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control cy-element-select" id="cy-element-select">
+                                <div class="checkbox-box">
+                                <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="color-option" name="color-option" checked>
+                                    <label for="color-option">
+                                        Color
+                                    </label>
+                                </div>
+                              <div class="icheck-danger d-inline">
+                                  <input type="checkbox" id="size-option" name="size-option" checked>
+                                    <label for="size-option">
+                                        Size
+                                    </label>
+                              </div>
+                              <div class="icheck-success d-inline">
+                                  <input type="checkbox" id="shape-option" name="shape-option" checked>
+                                  <label for="shape-option">
+                                      Shape
+                                </label>
+                              </div>
+                                    <div class="icheck-warning d-inline">
+                                        <input type="checkbox" id="tag-option" name="tag-option">
+                                        <label for="tag-option">
+                                        Tag
+                                    </label>
+                                    </div>
+                            </div>
+                            </div>
+                            <button id="apply-btn" class="btn btn-block btn-primary btn-xs apply">apply</button>
+
+                        </div>
+                        <div class="second-floor">
+                           <div class="form-group style-option">
+                               <div class="label-font-size-range">
+                                   <input type="text" class="form-control" id="label-size" title="label font size" placeholder="Label Font Size:50">
+                               </div>
+                               <div class="label-font-color-text" title="label font color">
+                                   <input type="text" class="form-control" id="label-color">
+                               </div>
+                               <div class="color-box" title="shortpath-color">
+                                   <input type="text" class="form-control" id="shortpath-color">
+                               </div>
+                               <div class="map-size-box map-option" style="display: none" id="map-size-box">
+                                   <div class="size-option">
+{#                                        最小尺度#}
+                                       <input type="text" class="form-control" id="min-size-input" placeholder="min size input">
+                                   </div>
+                                   <div class="size-option">
+{#                                        最大尺度#}
+                                       <input type="text" class="form-control" id="max-size-input" placeholder="max size input">
+                                   </div>
+                               </div>
+                                <div class="map-color-box map-option" id="map-color-box">
+                                    <div class="color-option color-selector" title="Map Color Scheme Select">
+{#                                        方案选择#}
+                                        <select name="" id="map-color-option" class="form-control">
+                                            <option value="viridis">viridis</option>
+                                            <option value="plasma">plasma</option>
+                                            <option value="inferno">inferno</option>
+                                            <option value="magma">magma</option>
+                                            <option value="cividis">cividis</option>
+                                            <option value="Oranges">Oranges</option>
+                                            <option value="YlGn">YlGn</option>
+                                            <option value="binary">binary</option>
+                                            <option value="hot">hot</option>
+                                            <option value="copper">copper</option>
+                                        </select>
+                                    </div>
+                                    <div class="color-option">
+{#                                        方案配色#}
+                                        <div class="gradient-ramp" id="gradient-ramp">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sidebar-to-right">
+                                   <a href="javascript:void(0)" class="sidebar-nav" direction="right">
+                                       <i class="fa fa-arrow-right"></i>
+                                   </a>
+                               </div>
+                           </div>
+                            <div class="form-group multi-centrality-assessment-box">
+                                <div class="sidebar-to-left">
+                                    <a href="javascript:void(0)" class="sidebar-nav" direction="left">
+                                        <i class="fa fa-arrow-left"></i>
+                                    </a>
+                                </div>
+                                <div class="range-box">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-degreecentrality">
+                                                degree:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range custom-range-danger" style="margin-top: 5px" centrality_type="degreecentrality" text="degree">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-betweenesscentrality">
+                                                betweeness:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range custom-range-danger" style="margin-top: 5px" centrality_type="betweenesscentrality" text="betweeness">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-closenesscentrality">
+                                                closeness:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range custom-range-danger" style="margin-top: 5px" centrality_type="closenesscentrality" text="closeness">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-eigenvectorcentrality">
+                                                eigenvector:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range custom-range-teal" style="margin-top: 5px" centrality_type="eigenvectorcentrality" text="eigenvector">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-informationcentrality">
+                                                information:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range custom-range-teal" style="margin-top: 5px" centrality_type="informationcentrality" text="information">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-currentflowbetweennesscentrality">
+                                                flow betweenness:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range custom-range-teal" style="margin-top: 5px" centrality_type="currentflowbetweennesscentrality" text="flow betweenness">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-pagerank">
+                                                page rank:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range" style="margin-top: 5px" centrality_type="pagerank" text="page rank">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-communicabilitybetweennesscentrality">
+                                                CBC:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range" style="margin-top: 5px" centrality_type="communicabilitybetweennesscentrality" text="CBC">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="text-subgraphcentrality">
+                                                subgraph:0
+                                            </span>
+                                        </div>
+                                        <div style="background: white">
+                                            <input type="range" class="custom-range centrality-range" style="margin-top: 5px" centrality_type="subgraphcentrality" text="subgraph">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="option-button-box">
+                                    <button class="btn btn-block btn-outline-danger btn-xs refresh-button" id="refresh-button">Refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-configure box-block">
+                <div class="configure-box">
+                    <form action="">
+                        <div class="form-group">
+                            <select class="form-control direct-select" id="direct-select">
+                                <option value="Node">Node</option>
+                                <option value="Link">Link</option>
+                                <option value="Entirety">Entirety</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control concept-select" id="concept-select">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control diagram-select" id="diagram-select">
+                                <option value="diagram">diagram</option>
+                                <option value="topology">topology</option>
+                            </select>
+                        </div>
+                        <div class="form-group type-select-box" id="type-select-box">
+                            <select class="form-control type-select" id="type-select">
+                                <option value="line">line</option>
+                                <option value="polar">polar</option>
+                                <option value="bar">bar</option>
+                                <option value="bar-polar">bar-polar</option>
+                                <option value="radar">radar</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="form-group style-button-box">
+                        <button class="btn btn-block btn-outline-success btn-xs" id="save-style-data">Save Style Data</button>
+                    </div>
+                    <div class="form-group style-button-box">
+                         <button class="btn btn-block btn-outline-danger btn-xs" id="update-style-data">Open Style Data</button>
+                    </div>
+                    <div class="form-group style-button-box">
+                         <button class="btn btn-block btn-outline-danger btn-xs" id="time-dependent" times="0">time-dependent</button>
+                    </div>
+                    <div class="drop-icon">
+                        <a href="javascript:void(0)" class="arrow-up-down" state="down">
+                            <i class="fa fa-arrow-down"></i>
+                        </a>
+                        <a href="javascript:void(0)" class="arrow-up-down" state="up">
+                            <i class="fa fa-arrow-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="result-box">
+                    <form action="">
+                        <div class="form-group">
+                            <strong>
+                                <i class="fa fa-play"></i>
+                                <label for="stat-result" id="result-label">Result:</label>
+                            </strong>
+                            <input type="text" class="form-control" id="stat-result" readonly>
+                        </div>
+                        <div class="form-group">
+                            <strong>
+                                <i class="fa fa-chevron-circle-up"></i>
+                                <label for="network-name-select">Change Network</label>
+                            </strong>
+                            <select class="form-control network-name-select" id="network-name-select">
+                                {% for network in networks %}
+                                    <option value="{{ network.pk }}">{{ network.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <strong>
+                                <i class="fa fa-area-chart"></i>
+                                <label for="map-channel">Map Channel</label>
+                            </strong>
+                            <select name="map-channel" class="form-control" id="map-channel" style="">
+                                <option value="Color">Color</option>
+                                <option value="Size">Size</option>
+                                <option value="Opacity">Opacity</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <strong>
+                                <i class="fa fa-area-chart"></i>
+                                <label for="map-channel">Map Normalization</label>
+                            </strong>
+                            <select name="map-normalization" class="form-control" id="map-normalization" style="">
+                                <option value="Linear">Linear</option>
+                                <option value="Logarithmic">Logarithmic</option>
+                                <option value="Power-law">Power law</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-block btn-outline-success diagram-submit-btn"
+                                id="diagram-submit-btn">Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="img-wrapper" id="img-wrapper" state="false" num="1" style="">
+    <div class="img-box" id="img-box">
+           <div class="img-col" id="img-col-1">
+        <a class="delete-tag" num="1" id="img-close-1">
+             <i class="fa fa-times"></i>
+        </a>
+        <img src="" alt="" num="1" class="pngImg" id="pngImg1">
+    </div>
+    </div>
+    </div>
+    <div class="selector-wrapper" state="close">
+        <table class="table table-striped selector-table" num="1">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Element</th>
+                    <th>Query</th>
+                    <th>Visual Channel</th>
+                    <th>Detail</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block elsecontent %}
+    <a href="javascript:void(0)" id="openImg" style="position: absolute; top: 0px;left: 0; z-index: 0;display: block">
+         <img src="{% static 'images/Chevron_right.png' %}" alt="">
+    </a>
+    <a href="javascript:void(0)" style="display: block;top: 0px; right: 0px;z-index:0;position: absolute" id="openTable">
+        <img src="{% static 'images/Chevron_left.png' %}" alt="">
+    </a>
+{% endblock %}

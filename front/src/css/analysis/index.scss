@@ -1,0 +1,362 @@
+@import '../common/constant.scss';
+@import '../common/common.scss';
+@import '../common/nav.scss';
+
+body{
+    overflow-x: hidden;
+}
+.wrapper{
+    @include nav;
+    .content-wrapper{
+        margin: 0 auto;
+        width: $mainPageWidth;
+        overflow: hidden;
+        .control-nav{
+            float: left;
+            width: $controlPannelWidth;
+            .diagram{
+                height: 400px;
+                width: 100%;
+                .diagram-body{
+                    width: 100%;
+                    height: 380px;
+                }
+            }
+            .control-panel{
+                height: 540px;
+                overflow: hidden;
+                .Reset-box{
+                    margin-top: 10px;
+                    height: 40px;
+                    label{
+                        margin-left: 10px;
+                        line-height: 40px;
+                        float: left;
+                    }
+                    .reset-btn{
+                        margin-left: 33px;
+                        float: left;
+                        //height: 40px;
+                        width: 80px;
+                    }
+                }
+                .form-group{
+                    label{
+                        margin-left: 10px;
+                    }
+                    .input-box{
+                        width: 150px;
+                        margin-left: 10px;
+                    }
+                    .layout-option{
+                        margin-top: 20px;
+                        margin-left: 20px;
+                        width: 330px;
+                        height: 40px;
+                    }
+                    .submit-btn{
+                        margin-top: 20px;
+                        margin-left: 20px;
+                        width: 330px;
+                        height: 40px;
+                    }
+                }
+            }
+        }
+        .main-view{
+            float: left;
+            width: $linkViewWidth;
+            height: $pageHeigh;
+            .link-view{
+                height: $linkViewHeight;
+                .network-name{
+                    margin-left: 30px;
+                }
+                .display-label{
+                    margin-left: 30px;
+                }
+                .link-view-body{
+                    overflow: hidden;
+                    position: relative;
+                    p{
+                        position: absolute;
+                        right: 0;
+                    }
+                    .single-element-data{
+                        top: 20px;
+                    }
+                    .toolbar{
+                        float: left;
+                        width: 200px;
+                        height: 760px;
+                        border-right: 5px #cccccc solid;
+                        .check-box-group{
+                            margin-top: 10px;
+                            padding-left: 10px;
+                            border-bottom: 2px solid #cccccc;
+                            overflow: hidden;
+                            .form-group{
+                                float: left;
+                            }
+                        }
+                        .node-style{
+                            border-bottom: 2px solid #cccccc;
+                            .input-group{
+                                .node-shape-select{
+                                    width: 154px;
+                                    height: 38px;
+                                }
+                            }
+                        }
+                        .link-shape{
+                            border-bottom: 2px solid #cccccc;
+                            .link-shape-select{
+                                    width: 154px;
+                                    height: 38px;
+                            }
+                            .curve-line-style{
+                                height: 38px;
+                            }
+                        }
+                        .tag-shape{
+                            border-bottom: 2px solid #cccccc;
+                            .border-shape-select{
+                                width: 154px;
+                                height: 39px;
+                            }
+                        }
+                    }
+                    .main-link-view{
+                        float: left;
+                        width: 1140px;
+                        height: 760px;
+                    }
+                    .drop-down-box{
+                        width: 1140px;
+                        height: 168px;
+                        position: absolute;
+                        background: #f0f0f0;
+                        bottom: -118px;
+                        //bottom: 0px;
+                        overflow: hidden;
+                        right: 0px;
+                        .first-floor{
+                            margin-top: 8px;
+                            overflow: hidden;
+                            padding-bottom: 5px;
+                            .input-group{
+                                width: 800px;
+                                float: left;
+                            }
+                            .checkbox-box{
+                                margin-left: 10px;
+                                margin-top: 6px;
+                            }
+                            .apply{
+                                width: 200px;
+                                float: right;
+                                padding: .375rem .75rem;
+                                margin-right: 5px;
+                            }
+                        }
+                        .second-floor{
+                            width: 2500px;
+                            position: absolute;
+                            //left: -1120px;
+                            left: 0px;
+                            overflow: hidden;
+                            .style-option{
+                                float: left;
+                                margin-top: 5px;
+                                margin-left: 10px;
+                                width: 1100px;
+                                //overflow: hidden;
+                                .label-font-size-range{
+                                    width: 154px;
+                                    float: left;
+                                }
+                                .label-font-color-text{
+                                    float: left;
+                                    margin-top: 2px;
+                                }
+                                .color-box{
+                                    float: left;
+                                    margin-top: 2px;
+                                }
+                                .map-option{
+                                    width: 616px;
+                                    float: left;
+                                    .size-option{
+                                        width: 300px;
+                                        float: left;
+                                        padding: 0 5px;
+                                    }
+                                    .color-option{
+                                        width: 300px;
+                                        float: left;
+                                        padding: 0 5px;
+                                        .gradient-ramp{
+                                            width: 100%;
+                                            height: 38px;
+                                            background-image: linear-gradient(to right, rgba(68,1,84,1),rgba(54,90,140,1),rgba(30,151,139,1),rgba(254,231,36,1));
+                                        }
+                                    }
+                                }
+                                .sidebar-to-right{
+                                    float: right;
+                                    width: 20px;
+                                    a{
+                                        color: black;
+                                        font-size: 20px;
+                                    }
+                                }
+                            }
+                            .multi-centrality-assessment-box{
+                                margin-left: 50px;
+                                float: left;
+                                .sidebar-to-left{
+                                    float: left;
+                                    width: 20px;
+                                    line-height: 111px;
+                                    a{
+                                        color: black;
+                                        font-size: 20px;
+                                    }
+                                }
+                                .range-box{
+                                    float: left;
+                                    width: 1030px;
+                                    .input-group{
+                                        float: left;
+                                        width: 341px;
+                                        .input-group-text{
+                                            width: 221px;
+                                            text-align: center;
+                                            display: inline
+                                        }
+                                        .custom-range{
+                                            width: 120px;
+                                            float: left;
+                                        }
+                                    }
+                                }
+                                .option-button-box{
+                                    float: left;
+                                    .btn{
+                                        margin-top: 5px;
+                                        width: 80px;
+                                        height: 100px;
+                                    }
+                                    .refresh-button{
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .detail-configure{
+                height: $detailHeight;
+                .configure-box{
+                    overflow: hidden;
+                    .form-group{
+                        margin-top: 10px;
+                        margin-left: 8px;
+                        float: left;
+                        //width: 250px;
+                    }
+                    .multi-choose{
+                        width: 400px;
+                    }
+                    .drop-icon{
+                        float: right;
+                    }
+                }
+                .result-box{
+                    .form-group{
+                        float: left;
+                        margin-top: 10px;
+                        strong{
+                            float: left;
+                            margin-top: 5px;
+                            margin-left: 8px;
+                        }
+                        .form-control{
+                            float: left;
+                            width: 150px;
+                            margin-left: 8px;
+                        }
+
+                    }
+                    .diagram-submit-btn{
+                        float: right;
+                        width: 190px;
+                        margin-right: 8px;
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.box-block{
+    border: 5px solid #e2e2e2;
+    //box-sizing: border-box;
+    .box-block-head{
+        padding: 0 20px;
+        background: $boxHeadColor;
+        height: 30px;
+        line-height: 30px;
+        font-weight: 700;
+    }
+}
+
+.img-wrapper{
+    width: 425px;
+    height: 4*250px;
+    background: white;
+    position: absolute;
+    top: -5px;
+    left: -400px;
+    //overflow: scroll;
+    overflow-y: scroll;
+    .img-box{
+        .img-col{
+            width: 400px;
+            height: 250px;
+            position: relative;
+            .delete-tag{
+                font-size: 30px;
+                position: absolute;
+                top: 5px;
+                right: 5%;
+                cursor: pointer;
+            }
+            .pngImg{
+                width: 100%;
+                height: 256px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+.drop-icon{
+    .arrow-up-down{
+        color: black;
+        font-size: 20px;
+    }
+}
+
+.selector-wrapper{
+    position: absolute;
+    top: 32px;
+    right: -1200px;
+    background: white;
+}
+
+
