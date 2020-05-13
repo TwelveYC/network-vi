@@ -28,7 +28,7 @@ Because Django server has some requirement on local mysql database,you should fo
 3. change settings file DATABASES option, especially NAME and password. I use shengming as my local mysql db password, it's my personal habit.
 4. execute following commands to creat migration file. 
 ### *python manage.py makemigrations* and *python manage.py migrate*
-5.then use following command to run local server, then you can enter http://localhost/analysis/ 
+5.then use following command to run local server, then you can enter http://localhost:8000/analysis/
 ### python manage.py runserver
 ## second development
 if you want to develop this project, remeber cd /front folder and execute 
