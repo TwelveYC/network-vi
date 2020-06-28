@@ -25,13 +25,13 @@ pymysql
 and so on 
 ### 具体使用方式
 因为Django服务器在移植的时候有一些要求，需要按照以下的步骤才行成功运行：
-1. 删除在/apps/anaylsis/migrations and /apps/gengrate/migrations/目录下的迁移文件
+1. 删除在/apps/anaylsis/migrations and /apps/generate/migrations/目录下的迁移文件
 2. 在本地的mysql数据库中创建一个数据库名字可以任取
 3. 更改settings文件中的 DATABASES 选项,特别是数据库名字和密码
 4. 执行以下迁移脚本的命令  
-`python manage.py makemigrations`
+`python manage.py makemigrations`  
 `python manage.py migrate`
-5. 然后执行下面命令开启服务器，即可在`http://localhost:8000/analysis/`进入界面。
+5. 然后执行下面命令开启服务器，即可在`http://localhost:8000/analysis/`进入界面。  
 `python manage.py runserver`
 ## 二次开发
 如果你想要二次开发，需要使用gulp打包工具。
