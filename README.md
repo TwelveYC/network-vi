@@ -36,7 +36,7 @@ and so on
 ## 二次开发
 如果你想要二次开发，需要使用gulp打包工具。
 1. 首先安装全局安装gulp3.9(注意版本)
-`npm install gulp#3.9 -g`
+`npm install gulp@3.9 -g`
 2. 然后cd 到front文件夹下执行 `npm install`,即可开启gulp的监听打包任务，即可二次开发。
 
 
