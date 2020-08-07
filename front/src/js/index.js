@@ -177,6 +177,9 @@ Graph.prototype.ajaxGetNetworkData = function (ids, is_start) {
                                 selector: 'edge',
                                 style: {
                                     'width': 10,
+                                    'target-arrow-shape': 'triangle',
+                                    'target-arrow-color': 'black',
+
                                     // 'curve-style': 'taxi',
                                     // 'line-color': '#cccccc',
                                     // 'curve-style': 'bezier',
@@ -449,38 +452,60 @@ Graph.prototype.initDataKeyEvent = function () {
 };
 Graph.prototype.test = function(){
     var self = this;
-    $("#time-dependent").click(function () {
-        var times = parseInt($(this).attr("times"));
-        $(this).attr("times",times + 1);
+    $("#auc-line").click(function () {
         wnatajax.get({
-            'url':"/analysis/test/",
-            "data":{
-                'id':self.id,
-                'times':parseInt(times)
-            },"success":function (result) {
-                if(result['code']==200){
-                    console.log(result);
-                    var data = JSON.parse(result['data']);
-                    var eleSpring = "";
-                     for(var key in data){
-                         var value = data[key];
-                         if(key == data.length-1){
-                             eleSpring += "node#" + value;
-                         }else{
-                             eleSpring += "node#" + value +",";
-                         }
-                     }
-                     self.cy.filter(eleSpring).style("background-color","#eeeeee");
-                     console.log(times);
-                }else {
-                    console.log(result)
+            data: {
+              id: self.id
+            },
+            url: "/analysis/test/",
+            "success": function(result) {
+                if(result['code']==200) {
+                    console.log((result));
+                    var series = [];
+                    var legend = []
+                    var name_map = {
+                        'degreecentrality': 'dc',
+                        'betweenesscentrality': 'bc',
+                        'closenesscentrality': 'cc',
+                        'informationcentrality': 'ic',
+                    }
+                    for(var i in result['data']) {
+                        console.log(i);
+                        series.push({
+                            data: result['data'][i],
+                            type: 'line',
+                            name: name_map[i] + result['message'][i]
+                        })
+                        legend.push(
+                            name_map[i] + result['message'][i]
+                        )
+                    }
+                    var option = {
+                        title: {
+                            text: 'auc',
+                            left: "center"
+                        },
+                        legend: {
+                            data: legend,
+                            top: "7%",
+                            left:'10%',
+                        },
+                        xAxis: {
+                            name: "FPR",
+                            type: 'value',
+                             nameLocation: "middle"
+                        },
+                        yAxis: {
+                            name: "TPR",
+                            type: 'value',
+                            nameLocation: "middle"
+                        },
+                        series: series
+                    }
+                    self.mychart.setOption(option, true);
                 }
-
-            },"fail":function (result) {
-
             }
         })
-
     });
 };
 

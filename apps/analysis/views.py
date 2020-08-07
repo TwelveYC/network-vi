@@ -18,6 +18,7 @@ class TableView(View):
         content = {
             'networks': networks,
         }
+        
         return render(request, 'table/index.html', context=content)
 
 
@@ -486,13 +487,107 @@ def get_style_data(request):
     datum.append(tag_style)
     return restful.result(data=json.dumps(datum))
 
+
 def test(request):
     id = request.GET.get("id")
-    times = request.GET.get("times")
-    if id == "11":
-        path = os.path.join(settings.MEDIA_ROOT, "data.json")
-        with open(path,"r") as fp:
-            infos = json.load(fp)
-        return restful.result(data=json.dumps(infos[int(times)]))
+    print(type(id))
+    if id == "30":
+        network = NetWorkManager.objects.get(pk=id)
+        g = files.read_network_with_type(network)
+        results = dict()
+        messages = dict()
+        names = ["degreecentrality",
+                 "betweenesscentrality",
+                 "closenesscentrality",
+                 "informationcentrality"]
+        for i in names:
+            res = get_result(g, i)
+            area = get_auc(res)
+            results[i] = res
+            messages[i] = ("%.3f" %area)
+        return restful.result(message=messages, data=results)
     else:
-        return restful.parameter_error()
+        return restful.success()
+
+
+def get_result(g, kind):
+    dc = nx.get_node_attributes(g, kind)
+    flights = nx.get_node_attributes(g, "flight")
+    f = []
+    for i,j in flights.items():
+        if j != 'none':
+            f.append(i)
+    sort_dc = sorted(dc.items(), key=lambda x:x[1], reverse=True)
+    ture_neigative = 0
+    false_positive = 0
+    false_negative = 0
+    ture_positive = 0
+
+    # TPR 真阳率
+    # FPR 假阳率
+    results = []
+    size = g.number_of_nodes()
+    len_f = len(f)
+    for i in range(size):
+        index = 0
+        for sample in sort_dc:
+            if sample[0] in f:
+                # 真实为阳性
+                if index <= i:
+                    ture_positive += 1
+                else:
+                    false_negative += 1
+            else:
+                # 真实为阴性
+                if index <= i:
+                    # 判断为阳性
+                    false_positive += 1
+                else:
+                    ture_neigative += 1
+            index += 1
+        TPR = ture_positive/len_f
+        FPR = false_positive/(size - len_f)
+        results.append((FPR, TPR))
+        ture_neigative = 0
+        false_positive = 0
+        false_negative = 0
+        ture_positive = 0
+    return results
+
+
+def get_auc(results):
+    area = 0
+    state = 0
+    temp = list()
+    for i in range(len(results)):
+        if i != len(results) - 1:
+
+            if state is 0:
+                #  上升
+                current_point = results[i]
+                next_point = results[i + 1]
+                if current_point[0] < next_point[0]:
+                    state = 1
+                    temp.append(current_point)
+                elif current_point[0] == next_point[0]:
+                    pass
+            elif state is 1:
+                # 右移
+                current_point = results[i]
+                next_point = results[i + 1]
+                if current_point[1] < next_point[1]:
+                    state = 0
+                    temp.append(current_point)
+                elif current_point[1] == next_point[1]:
+                    pass
+        else:
+            temp.append(results[i])
+    len_temp = len(temp)
+    for i in range(int(len_temp / 2)):
+        c = temp[2 * i]
+        n = temp[2 * i + 1]
+        area += (n[0] - c[0]) * c[1]
+    print(area)
+    return area
+
+
